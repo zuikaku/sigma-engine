@@ -36,7 +36,7 @@ class PostsController < ApplicationController
 
   private
   def show_page(page_number)
-    @threads = Post.where(opening: true).order('bump DESC').paginate(per_page: 3,
+    @threads = Post.where(opening: true).order('bump DESC').paginate(per_page: 10,
                                                                      page: page_number)
     if @threads.empty? and page_number != 1
       not_found
@@ -47,6 +47,7 @@ class PostsController < ApplicationController
 
   def process_post
     def validate_content(post)
+      post.message = parse(post.message)
       unless post.valid?
         post.errors.to_hash.each_value do |error_array|
           error_array.each { |e| @errors << e }
@@ -71,12 +72,12 @@ class PostsController < ApplicationController
       errors  = Array.new
       return true if picture.kind_of?(String)
       if picture.tempfile.size > MAX_PICTURE_SIZE
-        errors << "#{t('error.pic size should be')} #{MAX_PICTURE_SIZE/1024} kb"
+        errors << "#{t('errors.pic size should be')} #{MAX_PICTURE_SIZE/1024} kb."
       end
       if not ALLOWED_PICTURE_TYPES.include?(picture.content_type)
         allowed = Array.new
-        ALLOWED_PICTURE_TYPES.each { |type| allowed << type.split('')[1] }
-        errors << "#{t('error.pic type should be')} #{allowed.join(', ')}"
+        ALLOWED_PICTURE_TYPES.each { |type| allowed << type.split('/')[1].upcase }
+        errors << t('errors.pic type should be') + allowed.join(', ')
       end
       if errors.empty?
         hash = Digest::MD5.hexdigest(picture.tempfile.read)
@@ -105,11 +106,13 @@ class PostsController < ApplicationController
           return true
         end
       else
+        post.picture_name = 'sosnooley'
         return errors
       end
     end
 
     def validate_parent_thread(post)
+      return true if params[:action] == 'create_thread'
       if (thread = Post.get_by_id(params[:id].to_i))
         post.thread_id = thread.id
         (thread.bump = Time.new) if thread.replies_count < 500
@@ -124,13 +127,14 @@ class PostsController < ApplicationController
 
     def reply(response, status)
       if response.kind_of?(Post)
-        render(partial: 'post', object: response, status: status)
+        return render(partial: 'post', object: response, status: status)
       elsif response.kind_of?(Array)
         puts response.inspect
         string = String.new
         response.each { |e| string += "#{e}<br/>" }
-        render(text: string, status: status)
+        response = string
       end
+      return render(text: response, status: status)
     end
 
     sleep(1)
@@ -146,7 +150,7 @@ class PostsController < ApplicationController
     if validate_content(post) and validate_parent_thread(post)
       post.save
       if post.opening
-        return redirect_to(action: 'show', id: post.id, format: 'xhtml')
+        return reply(url_for(action: 'show', id: post.id, format: 'xhtml'), :created)
       else
         return reply(post, :created)
       end

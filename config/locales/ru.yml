@@ -15,8 +15,10 @@ ru:
   errors:
     missing picture:    'Вы забыли приложить картинку.'
     missing content:    'Нужно либо приложить картинку, либо что-нибудь написать.'
-    missing message:    'В сообщении должно быть хотя бы три символа.'
+    missing message:    'В ОП-посте обязательно нужно что-нибудь написать.'
     thread vanished:    'Тред, на который вы хотите ответить, куда-то пропал.'
+    pic size should be: 'Максимальный размер картинки:'
+    pic type should be: 'Допустимые форматы картинок: '
   activerecord:
     errors:
       models:

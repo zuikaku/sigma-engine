@@ -11,7 +11,7 @@ $(document).ready ->
   $('#thread_form').submit(submit_thread)
   $('#reply_form').submit(submit_reply)
   $('.reply_link').click(move_reply_form)
-  $('#reply_form textarea').bind 'keydown', 'ctrl+return', -> $(this).submit()
+  $('#reply_form textarea').bind('keydown', 'ctrl+return', -> $(this).submit())
   $('.ajax_detector').attr('checked', true)
   return false
 
@@ -43,14 +43,14 @@ submit_reply = ->
       clear_form(form)
       post = $(response)
       thread.append(post)
-      post.css 'opacity', 0
-      post.animate {opacity: 1}, 800
-      $.scrollTo post, settings = {offset: {top: 50}}
+      post.css('opacity', 0)
+      post.animate({opacity: 1}, 800)
+      $.scrollTo(post, settings = {offset: {top: 50}})
       if not showing_thread
         $('#reply_form_container').css('display', 'none')
       else
         post.after(form.parent())
-      $('.reply_link').unbind().click move_reply_form
+      $('.reply_link').unbind().click(move_reply_form)
     error: (response) ->
       unblur_form(form)
       if response.status == 500
@@ -71,13 +71,13 @@ move_reply_form = ->
   if showing_thread
     form_moved = true
   else
-    if post.attr('class') is 'post'
-      thread_id = post.parent().find('.post .thread').attr('id')
+    if post.hasClass('reply')
+      thread_id = post.parent().find('.thread').attr('id')
     else
       thread_id = post.attr('id')
     action = "/threads/#{thread_id}/reply"
     container.find('form').attr('action', action)
-  $.scrollTo post, settings = offset: {top: -200}
+  $.scrollTo(post, settings = offset: {top: -200})
   return false
   
 blur_form = (form, errors) ->
@@ -106,4 +106,4 @@ show_errors = (div, errors) ->
 
 clear_form = (form) =>
   form.find('textarea').val('')
-  form.find('#file_field').val('')
+  form.find('.file_field').val('')

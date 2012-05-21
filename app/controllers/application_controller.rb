@@ -2,11 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def not_found
-    render template: 'not_found', status: :not_found
-  end
-
-  def errors
-    return render text: @err
+    render(template: 'not_found', status: :not_found)
   end
 
   private
@@ -21,34 +17,25 @@ class ApplicationController < ActionController::Base
   def parse(text)
     text.strip!
     text.gsub!('&', '&amp;')
-    text.gsub!('<', '&lt;') 
-    text.gsub! '>', '&gt;'
-    text.gsub! /\*\*(.+?)\*\*/, bold('\1')
-    text.gsub! /\*(.+?)\*/,     italic('\1')
-    text.gsub! /__(.+?)__/,     underline('\1')
-    text.gsub! /%%(.+?)%%/,     spoiler('\1')
+    text.gsub!('<', '&lt;')
+    text.gsub!('>', '&gt;')
+    text.gsub!(/\*\*(.+?)\*\*/, bold('\1'))
+    text.gsub!(/\*(.+?)\*/,     italic('\1'))
+    text.gsub!(/__(.+?)__/,     underline('\1'))
+    text.gsub!(/%%(.+?)%%/,     spoiler('\1'))
     @id_counter = 0
-    text.gsub! /&gt;&gt;(\d+)/ do |id|    
+    text.gsub! /&gt;&gt;(\d+)/ do |id|
       if @id_counter < 10 
         @id_counter += 1
         id = id[8..id.length].to_i
         if (post = Post.get_by_id(id))
-          if post.opening
-            url = url_for(
-              controller: 'posts',
-              action:     'show',
-              id:         post.id,
-              format:     'xhtml'
-            )
-          else
-            url = url_for(
-              controller: 'posts',
-              action:     'show',
-              id:         post.thread_id,
-              anchor:     post.id,
-              format:     'xhtml'
-            )
-          end
+          id = post.thread_id
+          id = post.id if post.opening
+          url = url_for(controller: 'posts',
+                        action:     'show',
+                        id:         id,
+                        anchor:     post.id,
+                        format:     'xhtml')
           "<div class='post_link'><a href='#{url}'>&gt;&gt;#{id}</a></div>"
         else
           "&gt;&gt;#{idd}"
@@ -57,29 +44,29 @@ class ApplicationController < ActionController::Base
         "&gt;&gt;#{idd}"
       end
     end
-    text.gsub! /^&gt;(.+)$/,    quote('\1')
-    text.gsub! /\r\n(\r\n)+/,   '<br /><br />'
-    text.gsub! /\r\n/,          '<br />'
-    text
+    text.gsub!(/^&gt;(.+)$/,  quote('\1'))
+    text.gsub!(/\r\n(\r\n)+/, '<br /><br />')
+    text.gsub!(/\r\n/,        '<br />')
+    return text
   end
 
-  def bold text
+  def bold(text)
       "<b>#{text}</b>"
   end
 
-  def italic text
+  def italic(text)
     "<i>#{text}</i>"
   end
 
-  def underline text
+  def underline(text)
     "<u>#{text}</u>"
   end
 
-  def spoiler text
+  def spoiler(text)
     "<span class='spoiler'>#{text}</span>"
   end
 
-  def quote text
+  def quote(text)
     "<span class='quote'>&gt; #{text.strip}</span><br />"
   end
 end
