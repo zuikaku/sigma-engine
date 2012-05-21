@@ -1,0 +1,23 @@
+%input{type: 'checkbox', name: 'ajax', checked: false, style: 'display:none', class: 'ajax_detector'}
+.errors
+-unless form_for == 'post creation'
+  %div
+    = form.text_field :title
+    = form.submit class: 'submit_button', value: t('interface.submit')
+.editbox
+  %b=             t 'interface.bold'
+  %i=             t 'interface.italic'
+  %u=             t 'interface.underline'
+  %span.spoiler=  t 'interfeace.spoiler'
+-unless form_for == 'thread creation'
+  #reply_hint.mini
+    = t 'interface.reply hint'
+/%img.loading{src: '/loading.gif'}
+%div
+  = form.text_area :message
+%div
+  .mini
+    = form.file_field :picture, class: 'file_field'
+  .password.mini
+    = t 'interface.password'
+    = form.password_field :password, size: 20, value: @password

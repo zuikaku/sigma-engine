@@ -1,0 +1,6 @@
+.thread_container.the_one_and_only
+  = render partial: 'post', object: @thread
+  = render partial: 'post', collection: @replies
+  #reply_form_container
+    = form_for Post.new, url: url_for(action: 'create_reply', id: @thread.id), html: {id: 'reply_form', method: 'post', multipart: true} do |f|
+      = render partial: 'post_form', locals: {form_for: 'post creation', form: f}

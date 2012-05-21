@@ -1,0 +1,159 @@
+// Place all the styles related to the Posts controller here.
+// Tbahey will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+textarea
+  position: relative
+  z-index: 2
+
+#thread_form
+  width:          750px
+  display:        table
+  margin:         0 auto
+  margin-top:     15px
+  margin-bottom:  20px
+  textarea
+    width:        750px
+    max-width:    750px
+    max-height:   230px
+    height:       230px
+  #post_title
+    width:        80%
+    padding:      3px
+  .submit_button
+    float:        right
+    padding:      4px
+    width:        100px
+
+#thread_form, #reply_form
+  .editbox
+    float:        left
+    margin-bottom: 3px
+  div
+    margin-top:   5px
+  div.mini 
+    display:      table
+    width:        50%
+    float:        left
+  .password
+    text-align:   right
+
+#reply_form_container
+  display:        table
+  margin-bottom:  25px
+  #reply_form
+    textarea
+      width:      600px
+      max-width:  600px
+      height:     200px
+      max-height: 200px
+    #reply_hint
+      float:      right
+      text-align: right
+      font-size:  11px
+      width: 40%
+
+.submit_button
+  padding:        3px
+  &:hover
+    cursor:       pointer
+    color:        #FF6600
+
+.editbox
+  font-size:      11px
+  color:          #666666
+  b, i, u, .spoiler
+    margin-right: 13px
+    cursor:       pointer
+  b:hover, i:hover, u:hover
+    color:        #FF6600
+
+.reply
+  background:     #DDDDDD
+  border:         1px solid #CCCCCC
+  box-shadow:     1px 1px 1px 1px #e9e9e9
+  -moz-box-shadow: 1px 1px 1px 1px #e9e9e9
+  -webkit-box-shadow: 1px 1px 1px 1px #e9e9e9
+  padding:        13px
+  padding-top:    2px
+  display:        table
+  margin-bottom:  6px
+
+.thread_container
+  display:        table
+  margin-bottom:  30px
+  margin-top:     30px
+  width:          100%
+  hr 
+    margin-top:   15px
+  .title
+    display:      inline
+    color:        #002244
+    font-size:    18px
+    margin-right: 10px
+    font-weight:  bold
+  .post
+    margin-bottom: 10px
+
+.reply_link
+  text-decoration: none
+  color:          #555555
+  margin-right:   10px
+  margin-left:    5px
+  font-weight:    bold
+
+.errors
+  color:          red
+  min-height:     24px
+
+.post_link
+  display:        inline  
+
+#pages
+  color:          #666666
+  a 
+    margin-right: 5px
+    margin-left:  5px
+    padding:      3px
+    padding-right: 10px
+    padding-left: 10px
+    padding-top: 8px
+  a.current
+    background:   #CCCCCC
+    text-decoration: none
+    color:        black
+
+.file_info
+  @extend .mini
+  font-size:      11px
+
+.file 
+  img
+    float:        left
+    margin-top:   4px
+    margin-right: 14px
+    margin-bottom: 3px
+
+.post
+  blockquote
+    min-width:    300px
+    min-height:   20px
+  span.mini
+    display:      block
+
+.quote
+  color:          #789922
+
+
+
+.loading
+  margin: 0 auto
+  position: absolute
+  top: 120
+  left: 130
+  z-index: 4
+
+#reply_form
+  .loading
+    top: 110
+    left: 60

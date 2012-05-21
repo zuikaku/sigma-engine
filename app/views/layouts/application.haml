@@ -1,0 +1,22 @@
+%html
+  %head
+    %title= t 'interface.main title'
+    %meta{:'http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8'}
+    = stylesheet_link_tag     "sigma",  :media => "all"
+    = javascript_include_tag  "sigma"
+    = csrf_meta_tags
+  %body
+    #container
+      #navigation
+        #title
+          %a{href: url_for(:root)}= t('interface.main title').html_safe
+        #menubox
+      #content
+        %hr
+        = yield
+      #footer
+        Copyright Anonymous team 2011 &mdash; 2012
+        %br
+        Sigma engine version 0.1-dev
+
+    

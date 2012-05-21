@@ -1,0 +1,26 @@
+-url = url_for(controller: 'posts', action: 'show', id: post.id, format: 'xhtml')
+-cls = 'thread' if post.opening
+-cls = 'reply'  if not post.opening
+
+.post{id: post.id, class: cls}
+  %span.mini
+    -if post.picture_name != nil
+      %span.file_info
+        = "#{t('interface.file')}:"
+        %a{href: post.picture_url, target: '_blank'}<>
+          = " #{post.picture_name}.#{post.picture_type}"
+        &nbsp;(#{post.picture_size / 1024} kb)
+        = t 'interface.thumb'
+      %a.file{href: post.picture_url, target: '_blank'}
+        %img{src: post.thumb_url}
+    -if post.opening and not post.title.empty?
+      .title= post.title
+    = verbose_date post.created_at
+    %a.reply_link{href: url}= "№#{post.id}"
+
+    -if post.opening and params[:action] != 'show'
+      [&nbsp;
+      %a{href: url}= t('interface.open thread')
+      &nbsp;]
+  %blockquote= post.message.html_safe
+

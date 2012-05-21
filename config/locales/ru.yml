@@ -1,0 +1,28 @@
+ru:
+  interface:
+    main title:   'no name'
+    open thread:  'Открыть тред'
+    submit:       'отправить'
+    bold:         'Bold'
+    italic:       'Italic'
+    underline:    'Underline'
+    spoiler:      'Spoiler'
+    password:     'Пароль:'
+    pages:        'Страницы:'
+    reply hint:   'Для отправки нажмите Ctrl+Enter'
+    thumb:        'Показана уменьшенная копия, оригинал по клику.'
+    file:         'Файл'
+  errors:
+    missing picture:    'Вы забыли приложить картинку.'
+    missing content:    'Нужно либо приложить картинку, либо что-нибудь написать.'
+    missing message:    'В сообщении должно быть хотя бы три символа.'
+    thread vanished:    'Тред, на который вы хотите ответить, куда-то пропал.'
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            message:
+              too_long:   'Сообщение слишком длинное.'
+            title:
+              too_long:   'Название треда слишком длинное.'
