@@ -7,14 +7,16 @@ class ApplicationController < ActionController::Base
 
   private
   def post_only
-    return not_found if not request.post?
+    # i have a bad feeling about that
+    not_found if not request.post?
   end
 
   def ajax_used?
-    return params[:ajax] == 'on'
+    params[:ajax] == 'on'
   end
 
   def parse(text)
+    # I'm sure that's a very bad practice, but fuck it
     text.strip!
     text.gsub!('&', '&amp;')
     text.gsub!('<', '&lt;')
@@ -36,7 +38,7 @@ class ApplicationController < ActionController::Base
                         id:         id,
                         anchor:     post.id,
                         format:     'xhtml')
-          "<div class='post_link'><a href='#{url}'>&gt;&gt;#{id}</a></div>"
+          "<div class='post_link'><a href='#{url}'>&gt;&gt;#{post.id}</a></div>"
         else
           "&gt;&gt;#{idd}"
         end

@@ -1,6 +1,6 @@
 ru:
   interface:
-    main title:   'no name'
+    main title:   'test board'
     open thread:  'Открыть тред'
     submit:       'отправить'
     bold:         'Bold'
@@ -17,8 +17,11 @@ ru:
     missing content:    'Нужно либо приложить картинку, либо что-нибудь написать.'
     missing message:    'В ОП-посте обязательно нужно что-нибудь написать.'
     thread vanished:    'Тред, на который вы хотите ответить, куда-то пропал.'
+    thread closed:      'Этот тред закрыт. Теперь сюда нельзя писать.'
     pic size should be: 'Максимальный размер картинки:'
     pic type should be: 'Допустимые форматы картинок: '
+    banned:             'Вы забанены и не можете создавать сообщения. Подробности '
+    posting too fast:   'Вы постите слишком часто. Умерьте пыл.'
   activerecord:
     errors:
       models:

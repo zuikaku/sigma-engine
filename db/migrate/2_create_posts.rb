@@ -8,6 +8,7 @@ class CreatePosts < ActiveRecord::Migration
       # if opening post 
       t.integer   :replies_count, default: 0
       t.boolean   :sticky,        default: false
+      t.boolean   :closed,        default: false
       t.string    :title
       t.datetime  :bump      
       # else

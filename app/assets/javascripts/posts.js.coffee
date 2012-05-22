@@ -81,6 +81,8 @@ move_reply_form = ->
   return false
   
 blur_form = (form, errors) ->
+  $('#thread_form').unbind()
+  $('#reply_form').unbind()
   form.find('textarea').blur()
   form.find('input').blur()
   form.find('.submit_button').attr('disabled', true)
@@ -91,6 +93,8 @@ blur_form = (form, errors) ->
   return false
 
 unblur_form = (form) ->
+  $('#thread_form').submit(submit_thread)
+  $('#reply_form').submit(submit_reply)
   form.find('.submit_button').removeAttr('disabled')
   form.find('.submit_button').attr('value', 'отправить')
   form.find('.loading').css('z-index', '1')

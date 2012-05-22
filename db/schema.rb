@@ -24,12 +24,12 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "ips", :force => true do |t|
     t.string   "ip"
-    t.datetime "last_post"
-    t.datetime "last_thread"
-    t.boolean  "banned"
+    t.datetime "last_post",   :default => '-0001-12-31 20:00:00'
+    t.datetime "last_thread", :default => '-0001-12-31 20:00:00'
+    t.boolean  "banned",      :default => false
     t.integer  "ban_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   add_index "ips", ["ip"], :name => "index_ips_on_ip", :unique => true
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 5) do
     t.boolean  "opening"
     t.integer  "replies_count", :default => 0
     t.boolean  "sticky",        :default => false
+    t.boolean  "closed",        :default => false
     t.string   "title"
     t.datetime "bump"
     t.integer  "thread_id"
